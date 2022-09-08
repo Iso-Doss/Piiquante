@@ -1,3 +1,5 @@
+// Status code: https://kinsta.com/fr/blog/codes-statut-http/
+
 require('dotenv').config();
 
 const express = require('express');
