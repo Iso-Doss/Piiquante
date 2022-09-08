@@ -54,4 +54,13 @@ mongoose.connect
     () => console.log('Connexion à MongoDB échouée !')
 );
 
+// Create uploads images folder if it's not exist.
+const dir = './images';
+
+if (!fs.existsSync(dir)) {
+
+    fs.mkdirSync(dir, {recursive: true});
+
+}
+
 module.exports = app;
