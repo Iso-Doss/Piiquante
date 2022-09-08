@@ -105,5 +105,4 @@ dist
 /package-lock.json
 
 # Upload images folder
-images/*
-!images/.gitkeep
+images
