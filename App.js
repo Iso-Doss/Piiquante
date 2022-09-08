@@ -19,4 +19,7 @@ const app = express();
 // Make application request body available.
 app.use(express.json());
 
+// Helmet helps you secure your Express apps by setting various HTTP headers. It's not a silver bullet, but it can help!
+app.use(helmet());
+
 module.exports = app;
