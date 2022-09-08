@@ -1,0 +1,19 @@
+{
+  "name": "piiquante",
+  "version": "1.0.0",
+  "description": "Build a secure API for a food reviews app",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Iso-Doss/Piiquante.git"
+  },
+  "author": "Iso-Doss",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Iso-Doss/Piiquante/issues"
+  },
+  "homepage": "https://github.com/Iso-Doss/Piiquante#readme"
+}
