@@ -14,6 +14,10 @@ const fs = require('fs');
 
 const helmet = require("helmet");
 
+const sauceRoutes = require('./routes/Sauce');
+
+const userRoutes = require('./routes/User');
+
 const app = express();
 
 // Make application request body available.
