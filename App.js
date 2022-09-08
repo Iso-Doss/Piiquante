@@ -40,4 +40,18 @@ const limiter = rateLimit({
 // Apply the rate limiting middleware to all requests
 app.use(limiter);
 
+// Database connection.
+mongoose.connect
+(
+    'mongodb+srv://' + process.env.MONGOOSE_DB_USER + ':' + process.env.MONGOOSE_DB_PASSWORD + '@passez-au-full-stack-av.ncoygvz.mongodb.net/test',
+    {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    }
+).then(
+    () => console.log('Connexion à MongoDB réussie !')
+).catch(
+    () => console.log('Connexion à MongoDB échouée !')
+);
+
 module.exports = app;
