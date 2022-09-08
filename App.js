@@ -13,3 +13,7 @@ const swaggerUi = require('swagger-ui-express');
 const fs = require('fs');
 
 const helmet = require("helmet");
+
+const app = express();
+
+module.exports = app;
