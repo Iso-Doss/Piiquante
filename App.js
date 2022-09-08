@@ -16,4 +16,7 @@ const helmet = require("helmet");
 
 const app = express();
 
+// Make application request body available.
+app.use(express.json());
+
 module.exports = app;
