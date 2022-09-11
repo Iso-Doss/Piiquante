@@ -1,17 +1,23 @@
-const User = require("../models/User");
-
 const bcrypt = require("bcrypt");
 
 const jwt = require("jsonwebtoken");
+
+const User = require("../models/User");
+
 const ApiResponse = require("../ApiResponse");
 
+/**
+ * Signup a user.
+ *
+ * @param req The request
+ * @param res The response
+ * @param next The next.
+ */
 exports.signup = (req, res, next) => {
 
     const apiResponse = new ApiResponse(false, "", req.body);
 
     User.find({email: req.body.email}).then((users) => {
-
-        console.log(users);
 
         if (users.length >= 1) {
 
@@ -69,6 +75,13 @@ exports.signup = (req, res, next) => {
 
 };
 
+/**
+ * Login a user.
+ *
+ * @param req The request
+ * @param res The response
+ * @param next The next.
+ */
 exports.login = (req, res, next) => {
 
     const apiResponse = new ApiResponse(false, "", req.body);
