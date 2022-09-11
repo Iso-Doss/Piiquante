@@ -31,7 +31,7 @@ module.exports = (req, res, next) => {
 
         if (undefined === req.body.password) {
 
-            apiResponse.message = "Le mot de passe mail est introuvable. Veuillez réessayé.";
+            apiResponse.message = "Le mot de passe est introuvable. Veuillez réessayé.";
 
             res.status(400).json(apiResponse.apiResponse);
 
