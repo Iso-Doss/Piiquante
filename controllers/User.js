@@ -1,10 +1,10 @@
+require('dotenv').config();
+
 const bcrypt = require("bcrypt");
 
 const jwt = require("jsonwebtoken");
 
 const User = require("../models/User");
-
-const ApiResponse = require("../ApiResponse");
 
 /**
  * Signup a user.
@@ -15,17 +15,11 @@ const ApiResponse = require("../ApiResponse");
  */
 exports.signup = (req, res, next) => {
 
-    const apiResponse = new ApiResponse(false, "", req.body);
-
     User.find({email: req.body.email}).then((users) => {
 
         if (users.length >= 1) {
 
-            apiResponse.message = "L'adresse email est déjà utilisé par un autre utilisateur. Veuillez réessayé.";
-
-            res.status(400).json(apiResponse.apiResponse);
-
-            return false;
+            return res.status(400).json({"message": "L'adresse email est déjà utilisé par un autre utilisateur. Veuillez réessayé."});
 
         } else {
 
@@ -41,25 +35,17 @@ exports.signup = (req, res, next) => {
 
                 user.save().then(() => {
 
-                    apiResponse.success = true;
-
-                    apiResponse.message = 'Utilisateur enregistré !'
-
-                    res.status(201).json(apiResponse.apiResponse);
+                    res.status(201).json({"message": "Utilisateur enregistré !"});
 
                 }).catch((error) => {
 
-                    apiResponse.message = "Une erreur inattendue s'est produite lors de la sauvegarde de l'utilisateur. Veuillez réessayé.";
-
-                    res.status(400).json(apiResponse.apiResponse);
+                    res.status(400).json({"message": "Une erreur inattendue s'est produite lors de la sauvegarde de l'utilisateur. Veuillez réessayé."});
 
                 });
 
             }).catch((error) => {
 
-                apiResponse.message = "Une erreur inattendue s'est produite lors du cryptage du mot de passe. Veuillez réessayé.";
-
-                res.status(500).json(apiResponse.apiResponse);
+                res.status(400).json({"message": "Une erreur inattendue s'est produite lors du cryptage du mot de passe. Veuillez réessayé."});
 
             });
 
@@ -67,9 +53,7 @@ exports.signup = (req, res, next) => {
 
     }).catch((error) => {
 
-        apiResponse.message = "Une erreur inattendue s'est produite lors de la vérification de l'existence du mail. Veuillez réessayé.";
-
-        res.status(400).json(apiResponse.apiResponse);
+        res.status(400).json({"message": "Une erreur inattendue s'est produite lors de la vérification de l'existence du mail. Veuillez réessayé."});
 
     });
 
@@ -84,15 +68,11 @@ exports.signup = (req, res, next) => {
  */
 exports.login = (req, res, next) => {
 
-    const apiResponse = new ApiResponse(false, "", req.body);
-
     User.findOne({email: req.body.email}).then((user) => {
 
             if (null === user) {
 
-                apiResponse.message = "L'utilisateur est introuvable. Veuillez réessayé."
-
-                res.status(401).json(apiResponse.apiResponse);
+                res.status(401).json({"message": "L'utilisateur est introuvable. Veuillez réessayé."});
 
             } else {
 
@@ -100,46 +80,32 @@ exports.login = (req, res, next) => {
 
                         if (!valid) {
 
-                            apiResponse.message = "L'utilisateur est introuvable. Veuillez réessayé."
-
-                            res.status(401).json(apiResponse.apiResponse);
+                            res.status(401).json({"message": "L'utilisateur est introuvable. Veuillez réessayé."});
 
                         } else {
 
-                            apiResponse.success = true;
+                            let token = jwt.sign(
+                                {
 
-                            apiResponse.message = "L'utilisateur est authentifié."
+                                    userId: user._id
 
-                            apiResponse.data = {
+                                },
 
-                                userId: user._id,
+                                'RANDOM_TOKEN_SECRET',
 
-                                email: req.body.email,
+                                //process.env.RANDOM_TOKEN_SECRET,
 
-                                token: jwt.sign(
-                                    {
+                                {expiresIn: '24h'}
+                            );
 
-                                        userId: user._id
-
-                                    },
-
-                                    'RANDOM_TOKEN_SECRET',
-
-                                    {expiresIn: '24h'}
-                                )
-
-                            };
-
-                            res.status(200).json(apiResponse.apiResponse);
+                            res.status(200).json({userId: user._id, email: req.body.email, token: token});
 
                         }
 
                     }
                 ).catch((error) => {
 
-                    apiResponse.message = "Une erreur inattendue s'est produite lors de la vérification du mot de passe. Veuillez réessayé.";
-
-                    res.status(500).json(apiResponse.apiResponse);
+                    res.status(500).json({"message": "Une erreur inattendue s'est produite lors de la vérification du mot de passe. Veuillez réessayé."});
 
                 });
 
@@ -147,9 +113,7 @@ exports.login = (req, res, next) => {
         }
     ).catch((error) => {
 
-        apiResponse.message = "Une erreur inattendue s'est produite lors de la rechercher de l'utilisateur. Veuillez réessayé.";
-
-        res.status(500).json(apiResponse.apiResponse);
+        res.status(500).json({"message": "Une erreur inattendue s'est produite lors de la rechercher de l'utilisateur. Veuillez réessayé."});
 
     });
 
