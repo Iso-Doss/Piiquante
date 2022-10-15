@@ -2,12 +2,12 @@ const express = require('express');
 
 const userController = require("../controllers/User");
 
-const signupLoginMiddleware = require("../middleware/SignupLogin");
+const userMiddleware = require("../middleware/User");
 
 const router = express.Router();
 
-router.post('/signup', signupLoginMiddleware, userController.signup);
+router.post('/signup', userMiddleware, userController.signup);
 
-router.post('/login', signupLoginMiddleware, userController.login);
+router.post('/login', userMiddleware, userController.login);
 
 module.exports = router;
