@@ -2,7 +2,7 @@
   "name": "piiquante",
   "version": "1.0.0",
   "description": "Build a secure API for a food reviews app",
-  "main": "server.js",
+  "main": "Server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
