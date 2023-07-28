@@ -57,3 +57,5 @@ Swagger Url: `localhost:3000/api-docs`
 * Delete a sauce: `localhost:3000/api/sauces/:stuffId` (DELETE)
 
 * Like or Dislike a sauce: `localhost:3000/api/sauces/:sauceId/like` (POST)
+
+Modification pour le test de la commande git clone
